@@ -34,7 +34,7 @@ The pipeline will
 
 The gait changing before and after treatments was determined by if the SVM which was trained on the before-treatments dataset could recognise the after-treatments dataset. The performance of the model represents the gait changing degree.
 
-The outputs are the SVM performance i.e. the gait difference.
+The outputs are the SVM recognition accuracy i.e. the gait difference.
 
 ## The Visualization 
 
