@@ -1,0 +1,49 @@
+For GGIR, install the GGIR package then everything is easy to follow. The shell function is a handy tool for generating activity reports.
+Just follow the instruction I wrote in the read.r file.
+Two things I want to reiterate here:
+-first, the input file suffix need to be lowercase, e.g. .cwa, the AX3 raw data is.CWA
+-second, do not run multiple shell functions at the same time, it will case problem.
+For HMM, because it is developed in Unix platform, it is unfriendly to WIN users.
+You can use WSL to create a virtual Linux environment. Following the instructions in
+https://docs.microsoft.com/en-us/windows/wsl/install-win10 step by step. I have pasted the key steps below
+a.	Before installing any Linux distros for WSL, you must ensure that the "Windows Subsystem for Linux" optional feature is enabled:
+1.	Open PowerShell as Administrator and run:
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+2.	Restart your computer when prompted.
+b.	Download the Linux package to a root path on your drive such as ‘C:\ ‘:
+I prefer ubuntu 18.04
+Ubuntu 18.04: https://aka.ms/wsl-ubuntu-1804
+c.	Unzip the file to a root folder using winZIP or whatever software 
+d.	Run the .exe file in the unzipped folder
+e.	Follow the instruction in the installer 
+Once you get your environment ready.
+Run the following code in the terminal 
+$ git clone git@github.com:activityMonitoring/biobankAccelerometerAnalysis.git <your path>
+$ bash utilities/downloadDataModels.sh
+$ pip3 install --user .
+$ javac -cp java/JTransforms-3.1-with-dependencies.jar java/*.java
+Potential problems may occur:
+1.	If causing permission error, just using sudo
+2.	If git is not working, just download the git from:
+https://github.com/activityMonitoring/biobankAccelerometerAnalysis
+3.	If model cannot be downloaded, just download from
+https://gas.ndph.ox.ac.uk/aidend/accModels/doherty2018.tar
+https://gas.ndph.ox.ac.uk/aidend/accModels/willetts2018.tar
+and put it to the activityModels folder in the git.
+4.	If Javac not found, try update all software using 
+sudo apt-get update && sudo apt-get dist-upgrade
+in the terminal.
+For how to use the HMM via terminal:
+First, cd to the program path
+Then sudo python3 accProcess.py <your data path>
+	You can include --epochPeriod=10 to set the epoch time 
+All other parameters can be found in the accProcess.py well annotated, just including them as, for example:
+sudo python3 accProcess.py --epochPeriod=5 --rawOutput=True <your data path>
+To visualized your activity log, just use the command 
+python3 accPlot.py <find the -timeSeries.csv.gz file in your data path >  <path to store your figure> 
+e.g. 
+python3 accPlot.py /mnt/hgfs/VM_Ubuntu/raw_data/005/BW_005_20190114-timeSeries.csv.gz /mnt/hgfs/VM_Ubuntu/raw_data/005/BW_005_20190114.png
+To be noticed, if you are using different model, you need to specify the model using in plotting
+e.g.
+python3 accPlot.py --activityModel=activityModels/willetts2018.tar /mnt/hgfs/VM_Ubuntu/raw_data/007/willets_model/BW_007_20190121-timeSeries.csv.gz /mnt/hgfs/VM_Ubuntu/raw_data/007/willets_model/BW_007_20190121.png
+tips: there are many handy functions in the ~/accelerometer/accUtils.py file, try using these functions to interpret the HMM results.
