@@ -12,27 +12,28 @@ After the initial processing, the raw gz file was converted to the csv file, mea
 
 ## The splicer 
 
-The inputs for the splicer are the converted csv files and the -timeSeries.csv.gz files.
+The inputs for the splicer are the converted csv files, which contains the raw tri-axial acceleration data, and the -timeSeries.csv.gz files, which has the activity diary.
 
 The splicer will 
 - firstly, pick out the walking periods from the whole timeline based on the classification results, 
 - secondly, calculate the Euclidean norm of the acceleration value of the three arises for each time point in the walking period (the AX3 default recording sampling rate is 100Hz which means 100 time point in 1s), 
 - finally, store each individual walking gait data into separate csv files and plot line charts of the calculated norm. 
 
-The outputs from the splicer are the gait data which are the calculated Euclidean norm series of each walking periods.
+The outputs from the splicer are the gait data which are the calculated Euclidean norm series of each walking periods. Each file represents the wave pattern of the acceleration change in the corresponding walking time period.
 
 ## The pipeline 
 
-Before feeding data into the pipeline, the gait data under comparison need to be stored into two individual folders with the same parent directory. 
+Before feeding data into the pipeline, the gait data under comparison need to be stored into two individual folders with the same parent directory. We are normally comparing the gaits before and after the surgery.
 
 The inputs for the pipeline are the directory containing the gait data folder for comparison.
 
 The pipeline will 
 - firstly, filter out the ‘noisy’ data based on the wave shape of the gait data,
-- secondly, train the SVM model to learn one gait pattern,
-- thirdly, apply the trained model to recognise the other gait pattern.
+- secondly, extract the gait pattern features by calculating the continuous wavelet transform coefficients of the selected ‘pure’ walking gait wave,
+- thirdly, train the SVM model to learn one gait pattern,
+- finally, apply the trained model to recognise the other gait pattern.
 
-The gait changing before and after treatments was determined by if the SVM which was trained on the before-treatments dataset could recognise the after-treatments dataset. The performance of the model represents the gait changing degree.
+The label of the sample for the SVM training is the before or after the surgery. The gait changing before and after treatments was determined by if the SVM which was trained on the before-treatments dataset could recognise the after-treatments dataset. The performance of the model represents the gait changing degree.
 
 The outputs are the SVM recognition accuracy i.e. the gait difference.
 
