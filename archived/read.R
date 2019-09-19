@@ -25,12 +25,12 @@ g.shell.GGIR(#=======================================
              #-------------------------------
              # Part 2:
              #-------------------------------
-             strategy = 2, #strategy = 1: Exclude ¡®hrs.del.start¡¯ number of hours at the beginning and ¡®hrs.del.end¡¯ 
-                           #number of hours at the end of the measurement and never allow for more than ¡®maxdur¡¯ number 
+             strategy = 2, #strategy = 1: Exclude Â¡Â®hrs.del.startÂ¡Â¯ number of hours at the beginning and Â¡Â®hrs.del.endÂ¡Â¯ 
+                           #number of hours at the end of the measurement and never allow for more than Â¡Â®maxdurÂ¡Â¯ number 
                            #of hours. These three parameters are set by their respective function arguments.
                            #strategy = 2 makes that only the data between the first midnight and the last midnight is used 
                            #for imputation. - strategy = 3 only selects the most active X days in the files. X is specified 
-                           #by argument ¡®ndayswindow¡¯              
+                           #by argument Â¡Â®ndayswindowÂ¡Â¯              
              ndayswindow=7,
              hrs.del.start = 0,          hrs.del.end = 0,
              maxdur = 9,                 includedaycrit = 16,
