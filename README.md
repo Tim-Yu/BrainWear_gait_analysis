@@ -6,7 +6,7 @@ Identify the walking interval and then extract and compare the gait features. Th
 
 Example data could be found in the [AX3 website](https://axivity.com/downloads/ax3).
 
-The raw data collected from the AX3 accelerometer need to be pre-processed using the biobank RF-HMM code. Please follow the instruction [Running biobank RF-HMM](https://gitlab.com/computational.oncology/brainwear/blob/Daisy/Running%20biobank%20RF-HMM). 
+The raw data collected from the AX3 accelerometer need to be pre-processed using the biobank RF-HMM code. Please follow the instruction [Biobank RF-HMM code](https://github.com/Tim-Yu/BrainWear_gait_analysis/blob/master/Biobank_data_processing.txt). 
 
 After the initial processing, the raw gz file was converted to the csv file, meanwhile, the activity classification results were stored into the -timeSeries.csv.gz file
 
