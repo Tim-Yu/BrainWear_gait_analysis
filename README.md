@@ -8,7 +8,7 @@ Example data could be found in the [AX3 website](https://axivity.com/downloads/a
 
 The raw data collected from the AX3 accelerometer need to be pre-processed using the biobank RF-HMM code. Please follow the instruction [Biobank RF-HMM code](https://github.com/Tim-Yu/BrainWear_gait_analysis/blob/master/Biobank_data_processing.txt). 
 
-After the initial processing, the raw gz file was converted to the csv file, meanwhile, the activity classification results were stored into the -timeSeries.csv.gz file
+After the initial processing, the raw CWA file was converted to the csv file, meanwhile, the activity classification results were stored into the -timeSeries.csv.gz file
 
 ## The splicer 
 
