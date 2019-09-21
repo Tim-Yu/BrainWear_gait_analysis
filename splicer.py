@@ -183,7 +183,7 @@ sedentary_interval = df[df['sedentary'] == 1].index
 moderate_interval = df[df['moderate'] == 1].index
 imputed_interval = df[df['imputed'] == 1].index
 # defining the path for the raw data
-dir_of_file = "./example_data/volunteer2.csv"
+dir_of_file = os.path.join(current_dir, "./data/volunteer2.csv")
 
 # faster way to do is using the intervals_splicer, it includes the plotting functions
 
