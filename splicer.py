@@ -187,6 +187,7 @@ dir_of_file = "./example_data/volunteer2.csv"
 
 # faster way to do is using the intervals_splicer, it includes the plotting functions
 
+os.chdir('./data')
 intervals_splicer(walking_interval, dir_of_file)
 
 # individual splicer
