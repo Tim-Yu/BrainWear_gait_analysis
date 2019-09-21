@@ -61,7 +61,7 @@ def intervals_splicer(walking_intervals, file_dir, save_csv=1, save_fig=1, save_
         for intervals in walking_intervals:
             time_starts = time.time()  # programme timer
             start_time = intervals._short_repr
-            end_time = (intervals + timedelta(seconds=5))._short_repr
+            end_time = (intervals + timedelta(seconds=30))._short_repr
             # storing the file with detailed time range in the name to the spliced dir
             file_name = ('./5s_spliced/' + file_dir.split("/")[-1].split(".")[0] + '/' +
                          file_dir.split("/")[-1].split(".")[0] + start_time.replace(":", ".") + 'to' +
@@ -71,9 +71,9 @@ def intervals_splicer(walking_intervals, file_dir, save_csv=1, save_fig=1, save_
                 n_row = 0
                 # for specific time period
                 for row in raw_data:  # 0 is Y 1 is X 2 is Z 4 is datetime, from the omi is 0 is datetime x is 1 y is 2
-                    if (row.values()[4] >= start_time) and (row.values()[1] != 'NaN'):
-                        tem = pd.DataFrame(data={'time': row.values()[4], 'x': row.values()[1], 'y': row.values()[0],
-                                                 'z': row.values()[2]}, index=[n_row])
+                    if (row.values()[2] >= start_time) and (row.values()[1] != 'NaN'):
+                        tem = pd.DataFrame(data={'time': row.values()[2], 'x': row.values()[0], 'y': row.values()[1],
+                                                 'z': row.values()[3]}, index=[n_row])
                         tem['time'] = pd.to_datetime(tem['time'])
                         tem['x'] = pd.to_numeric(tem['x'])
                         tem['y'] = pd.to_numeric(tem['y'])
@@ -87,7 +87,7 @@ def intervals_splicer(walking_intervals, file_dir, save_csv=1, save_fig=1, save_
                         # tem['y^z'] = math.sqrt(y_2 + z_2)  # for the X^Y X^Z or so panel
                         tem['x^y^z'] = math.sqrt(sum_xyz_2)
                         acc_collection = acc_collection.append(tem)
-                    if row.values()[4] >= end_time:  # define which data is wanted
+                    if row.values()[2] >= end_time:  # define which data is wanted
                         break
                     n_row += 1
                 if save_csv == 1:
@@ -173,19 +173,28 @@ def loadTimeSeriesCSV(tsFile):
     return tsData
 
 
+current_dir = os.path.dirname(__file__)
+os.chdir(current_dir)
 # try to get the time interval from the time series file
-df = loadTimeSeriesCSV(r'C:\Users\simpl\Documents\VM_Ubuntu\data\BW_013_20190225.csv')
+df = loadTimeSeriesCSV("./example_data/volunteer2-timeSeries.csv.gz")
 walking_interval = df[df['walking'] == 1].index  # ._short_repr will be the str
 sleeping_interval = df[df['sleep'] == 1].index
 sedentary_interval = df[df['sedentary'] == 1].index
 moderate_interval = df[df['moderate'] == 1].index
 imputed_interval = df[df['imputed'] == 1].index
+# defining the path for the raw data
+dir_of_file = "./example_data/volunteer2.csv"
 
+# faster way to do is using the intervals_splicer, it includes the plotting functions
+
+intervals_splicer(walking_interval, dir_of_file)
+
+# individual splicer
+'''
 # define the parameter used for the function. For specific time period, defining the time period as below
 start_datetime = '2018-10-18 13:05:30.010'
 end_datetime = '2018-10-18 13:05:38.010'
-# defining the path for the raw data
-dir_of_file = "C:/Users/simpl/Documents/VM_Ubuntu/raw_data/007/BW_007_20190204.csv"
+
 
 time_start = time.time()
 spliced = splicer(start_datetime, end_datetime, dir_of_file)
@@ -212,7 +221,7 @@ plt.savefig('./fig/' + dir_of_file.split("/")[-1].split(".")[0] + '/' + 'av' + s
 plt.clf()
 time_end = time.time()
 print 'time cost:', (time_end - time_start), 's'
-
+'''
 
 # try to split a period of time to walking intervals via the classification
 '''for interval in walking_interval:
@@ -242,10 +251,6 @@ print 'time cost:', (time_end - time_start), 's'
     time_end = time.time()
     print 'time cost:', (time_end - time_start), 's'
 '''
-# faster way to do is using the intervals_splicer, it includes the plotting functions
-
-os.chdir(r'C:\Users\simpl\Documents\VM_Ubuntu')
-intervals_splicer(walking_interval, dir_of_file)
 
 # characteristic of the period
 
