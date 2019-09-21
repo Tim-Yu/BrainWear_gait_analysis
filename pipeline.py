@@ -11,7 +11,7 @@ from scipy.signal import find_peaks
 # getting data
 current_dir = os.path.dirname(__file__)
 os.chdir(current_dir)
-files_path = './5s_spliced/'
+files_path = './data/5s_spliced/'
 gait_data = []
 labels = []
 file_names = []
