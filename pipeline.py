@@ -9,7 +9,9 @@ from sklearn.model_selection import train_test_split
 from scipy.signal import find_peaks
 
 # getting data
-files_path = r'C:\Users\simpl\Documents\VM_Ubuntu\5s_spliced\BW_011_20190131'
+current_dir = os.path.dirname(__file__)
+os.chdir(current_dir)
+files_path = './5s_spliced/'
 gait_data = []
 labels = []
 file_names = []
